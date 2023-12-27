@@ -20,28 +20,32 @@
     var CONFIG = {"hostname":"mynamepfd.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Daniel Du&#39;s blog">
-<meta property="og:url" content="https://mynamepfd.github.io/index.html">
+  <meta name="description" content="《加密与解密》is a book written by a couple of  master at kanxue.com that tells you about techniques in the software reverse engineering. I bought this book a few years ago, but I couldn’t understand the con">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Some notes on 《加密与解密》">
+<meta property="og:url" content="https://mynamepfd.github.io/2023/12/27/Some-notes-on-%E3%80%8A%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E3%80%8B/index.html">
 <meta property="og:site_name" content="Daniel Du&#39;s blog">
+<meta property="og:description" content="《加密与解密》is a book written by a couple of  master at kanxue.com that tells you about techniques in the software reverse engineering. I bought this book a few years ago, but I couldn’t understand the con">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-12-27T05:21:33.000Z">
+<meta property="article:modified_time" content="2023-12-27T08:51:49.002Z">
 <meta property="article:author" content="Daniel Du">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://mynamepfd.github.io/">
+<link rel="canonical" href="https://mynamepfd.github.io/2023/12/27/Some-notes-on-%E3%80%8A%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E3%80%8B/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Daniel Du's blog</title>
+  <title>Some notes on 《加密与解密》 | Daniel Du's blog</title>
   
 
 
@@ -139,9 +143,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -157,10 +162,9 @@
       <meta itemprop="name" content="Daniel Du's blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/27/Some-notes-on-%E3%80%8A%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E3%80%8B/" class="post-title-link" itemprop="url">Some notes on 《加密与解密》</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Some notes on 《加密与解密》
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -184,7 +188,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>《加密与解密》is a book written by a couple of  master at kanxue.com that tells you about techniques in the software reverse engineering. I bought this book a few years ago, but I couldn’t understand the content at the time. After a few years on the shelf, I sold it two years ago. But recently I read this book again because I wanted to decrypt a piece of software.</p>
+        <p>《加密与解密》is a book written by a couple of  master at kanxue.com that tells you about techniques in the software reverse engineering. I bought this book a few years ago, but I couldn’t understand the content at the time. After a few years on the shelf, I sold it two years ago. But recently I read this book again because I wanted to decrypt a piece of software.</p>
 <p>OK. I only want to talk about Chapter 20, 《虚拟机的设计》. It’s “how to design a virtual machine” in english. To be precise, it teaches you how to design a virtual machine software, like the well known VMProtect, to protect your software. This chapter is not easy to understand because the author omitted many details. So, I’d like to write some notes down.</p>
 <h1 id="Part-1-Generate-a-clean-exe"><a href="#Part-1-Generate-a-clean-exe" class="headerlink" title="Part 1 Generate a clean exe"></a>Part 1 Generate a clean exe</h1><p>OK, at first, let’s generate an exe by Visual Studio 2022 based on the code below.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int main() &#123;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -223,92 +227,30 @@
 <p>Well, it means that vesp is subtracted by 4. But vesp represents the top of the virtual stack, and now EBP is clearly not equal to vesp, so use vRestoreEsp to set EBP to vesp.</p>
 <p>OK. That’s all the confusion I encountered while reading the source code. I’m sure you can write clearer code after understanding how the VMP works. I’d like to do this, but I don’t have the time at the moment. By the way, the author has made some modifications to OllyDbg’s disassembly engine to get the extra information needed by the VMP. I discovered that udis86 can do this as well. Anyway, even though the code for VMP is not very good, the author should be thanked.</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://mynamepfd.github.io/2023/12/24/About-me/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Daniel Du">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Daniel Du's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/24/About-me/" class="post-title-link" itemprop="url">About me</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2023-12-24 11:11:10" itemprop="dateCreated datePublished" datetime="2023-12-24T11:11:10+08:00">2023-12-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-12-27 13:20:27" itemprop="dateModified" datetime="2023-12-27T13:20:27+08:00">2023-12-27</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Part-1-My-Childhood"><a href="#Part-1-My-Childhood" class="headerlink" title="Part 1 My Childhood"></a>Part 1 My Childhood</h3><p>Hello everyone. You can call me ‘Daniel Du’ if you want, btw, the pronunciation of ‘Du’ is as same as the word ‘do’.</p>
-<p><a target="_blank" rel="noopener" href="https://space.bilibili.com/183647443">This</a> is my space on bilibili.com, which is a very popular video website in China, but it’s not a good place to write articles. Given that github is unlikely to disappear even if world war III breaks out, so I decidied to write something here.</p>
-<p>So, at first, let me do a self introduction. I’m about thirty years old. That’s horrible! I used to think 30 years old was far away when I was 20 years old, but now I’m near it. I have to admit that this is one of the reasons I started this blog.</p>
-<p>Like many people in the video game industry, I used to like playing video games. CS was the first video game that I ever played, when I was in my primary school, about ten years old. What a good video game! It has made a big impression on me. Before that, I only played video games on television, such as 超级玛丽. </p>
-<p>My first computer was bought by my grandpa for 3000RMB. That was a lot at the time! I remember when there wasn’t even a decent road in front of my house, and my parents also had lost their jobs, and my mother’s father had a serious illness. Many people had lost their jobs at the time due to a horrible policy. Anyway, that’s a horrbile time to my family, but my grandpa still spent a lot of money on a computer for me. I suddenly wanted to ask my grandpa why he decided to buy a computer to me, but sadly, my grandpa passed away in Jan.</p>
-<p>I first learned about the word ‘hacker’ from one of my classmates when I was in my secondary school, about twelve years old, then I learned some simple techniques from some BBS. At the same time, I learned about the word ‘programming’. I have to say, programming is far more interesting than so called hacker techniques. One day, I found a post about the Olympiad in Informatics in a 贴吧, when I was about fifteen years old. In my country, there was a policy that states that if you do well in an OI competition, you can get accepted to a university, and the policy has been going on for decades. I have to wonder how terrible the information gap is! Unfortunately, I didn’t do well in my first tournament and the policy was cancelled the next year.</p>
-<h3 id="Part-2"><a href="#Part-2" class="headerlink" title="Part 2"></a>Part 2</h3><p>TODO</p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/12/24/About-me/" rel="prev" title="About me">
+      <i class="fa fa-chevron-left"></i> About me
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -361,6 +303,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-1-Generate-a-clean-exe"><span class="nav-number">1.</span> <span class="nav-text">Part 1 Generate a clean exe</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2-Technical-details-in-the-code"><span class="nav-number">2.</span> <span class="nav-text">Part 2 Technical details in the code</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
