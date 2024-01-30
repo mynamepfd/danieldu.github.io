@@ -1237,7 +1237,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #623cff;
+  background: #49774a;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2422,4 +2422,12 @@ hr {
 }
 .sub-menu .menu-item {
   display: inline-block;
+}
+body {
+  background: url("/photos/thelastofus.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.main-inner {
+  margin-top: 50%;
 }
