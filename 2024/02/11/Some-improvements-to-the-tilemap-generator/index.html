@@ -20,19 +20,25 @@
     var CONFIG = {"hostname":"mynamepfd.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"remove","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Well, you may have realised that I’m a Chinese. So why do I use English instead of Chinese?Yes, Chinese, or more accurately, Mandarin, is my first language, and I’ve been learning chinese since I was">
+  <meta name="description" content="I made a simple tilemap generator, but it was obviously too simple and not enough for my game, so I made some improvements to the tilemap generator. I strongly recommend you to review my last post fir">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Why do I use English?">
-<meta property="og:url" content="https://mynamepfd.github.io/2023/12/29/Why-do-I-use-English/index.html">
+<meta property="og:title" content="Some improvements to the tilemap generator">
+<meta property="og:url" content="https://mynamepfd.github.io/2024/02/11/Some-improvements-to-the-tilemap-generator/index.html">
 <meta property="og:site_name" content="Daniel Du&#39;s diary">
-<meta property="og:description" content="Well, you may have realised that I’m a Chinese. So why do I use English instead of Chinese?Yes, Chinese, or more accurately, Mandarin, is my first language, and I’ve been learning chinese since I was">
+<meta property="og:description" content="I made a simple tilemap generator, but it was obviously too simple and not enough for my game, so I made some improvements to the tilemap generator. I strongly recommend you to review my last post fir">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-12-29T11:19:51.000Z">
-<meta property="article:modified_time" content="2024-01-05T04:59:08.097Z">
+<meta property="og:image" content="https://mynamepfd.github.io/photos/BiomData.png">
+<meta property="og:image" content="https://mynamepfd.github.io/photos/FalloffMap.png">
+<meta property="og:image" content="https://mynamepfd.github.io/photos/NoiseMap.png">
+<meta property="og:image" content="https://mynamepfd.github.io/photos/NoiseMap1.png">
+<meta property="og:image" content="https://mynamepfd.github.io/photos/FalloffFunction.png">
+<meta property="article:published_time" content="2024-02-11T07:26:09.000Z">
+<meta property="article:modified_time" content="2024-02-12T12:59:41.811Z">
 <meta property="article:author" content="Daniel Du">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mynamepfd.github.io/photos/BiomData.png">
 
-<link rel="canonical" href="https://mynamepfd.github.io/2023/12/29/Why-do-I-use-English/">
+<link rel="canonical" href="https://mynamepfd.github.io/2024/02/11/Some-improvements-to-the-tilemap-generator/">
 
 
 <script id="page-configurations">
@@ -45,7 +51,7 @@
   };
 </script>
 
-  <title>Why do I use English? | Daniel Du's diary</title>
+  <title>Some improvements to the tilemap generator | Daniel Du's diary</title>
   
 
 
@@ -152,7 +158,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://mynamepfd.github.io/2023/12/29/Why-do-I-use-English/">
+    <link itemprop="mainEntityOfPage" href="https://mynamepfd.github.io/2024/02/11/Some-improvements-to-the-tilemap-generator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -165,7 +171,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Why do I use English?
+          Some improvements to the tilemap generator
         </h1>
 
         <div class="post-meta">
@@ -175,14 +181,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2023-12-29 19:19:51" itemprop="dateCreated datePublished" datetime="2023-12-29T19:19:51+08:00">2023-12-29</time>
+              <time title="Created: 2024-02-11 15:26:09" itemprop="dateCreated datePublished" datetime="2024-02-11T15:26:09+08:00">2024-02-11</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-01-05 12:59:08" itemprop="dateModified" datetime="2024-01-05T12:59:08+08:00">2024-01-05</time>
+                <time title="Modified: 2024-02-12 20:59:41" itemprop="dateModified" datetime="2024-02-12T20:59:41+08:00">2024-02-12</time>
               </span>
 
           
@@ -196,7 +202,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>Well, you may have realised that I’m a Chinese. So why do I use English instead of Chinese?<br>Yes, Chinese, or more accurately, Mandarin, is my first language, and I’ve been learning chinese since I was a baby, about two or three years old. But a fact is that most chinese people no longer enjoy reading articles written by chinese people after leaving schools.<span id="more"></span> The part of the reason is that most chinese people now have a busy lifestyle. They don’t have time to take a trip, go for a walk after dinner, talk with their neighbours, play with their children, watch TV, let alone read. It wasn’t like this about one hundred years ago. At the time, reading newspaper was the only way for average people to get information, and there were many insightful articles written by contermorary critics, one of them is my favorite writter 鲁迅. They raised different voices  and argued about their views through their articles. But nowadays everything has changed. There seems to be an invisible force that making such phenomenon disappear. There seems to be an invisible force that prevents people from thinking deeply from reading. And whenever you make a viewpoint, there’ll always be someone to contradict your viewpoint with expletives. There seems to be an invisible force that keeps people from tolerating objections. So, that’s why I don’t like writting in Chinese.<br>Well, I’d also like to talk a little bit about the history of English. World science is dominated today by a small number of languages, and English seems to be the most populare global language of science. There is no doubt that this is because of the importance of English-speaking countries such as the USA in scientific research, so, scientists of many non-English-speaking countries, like China, find that they need to write their research papers in English to reach a wide international audience. Actually, I’m always be amazed at the ability of Chinese graduates to write long dissertations. It seems that they don’t have much time to practice their English skills but they still write long dissertations in English.<br>Ok, back to our topic.<br>Was it like that before? Actually, no one really knew how to write science in English before the 17th century, and before that, Latin was regarded as the lingua franca for European intellectuals. We all know that Copernicus developed a new theories of astronomy and the movement of the Earth in relation to the planets and stars in the 15th century, and England was one of the first countries where scientists adopted and publicized Copernican ideads with enthusiasm.<br>The 17th century was a formative period in the establishment of scientific English. Obvisouly, English was not well equipped to deal with scientific argument in early period. First, it lacked the necessary technical vocabulary. Second, it lacked the grammatical resources required to represent the world in an objective and impersonal way, and to discuss the relations, such as cause and effect, that might hold between comple and hypothetical entities. Fortunately, several members of the Royal Society possessed an interest in language and became engaged in various linguistic projects. Although a proposal in 1664 to establish a committee for improving the English language came to little, the society’s members did  a great deal to foster the publication of science in English and to encourage the development of a suitable writing style, and many members of the Royal Society also published monographs in English. For example, Robert Hooke, the society’s first curator of experiments, described his experiments with microscopes in Micrographia in 1665, and later Newton published his mathematical treatise, known as the Principia, in Latin in 1687, but published his later work on the properties of light - Opticks - in English in 1701.<br>Although in the following century the English language lost much of its momentum, scientific English again enjoyed substantial lexical growth in the 19th century as the industrial revolution created the need for new technical vocabulary, and new specialised professional societies were instituted to promote and publish in the new disciplines.</p>
+        <p>I made a simple <a target="_blank" rel="noopener" href="https://www.danieldu.top/2024/02/10/A-simple-tilemap-generator/">tilemap generator</a>, but it was obviously too simple and not enough for my game, so I made some improvements to the tilemap generator. I strongly recommend you to review my last post first.<span id="more"></span></p>
+<h1 id="Decorations"><a href="#Decorations" class="headerlink" title="Decorations"></a>Decorations</h1><p>At first, I found the most appropriate value for the Height Noise Map Parameters is the default value, i.e, the Octaves set to 1, the Zoom Out set to 1 and the Curve set to linear. Tweaking these values would give more randomness to the map, but the randomness would get the map messy! What we want is a natural map, not a random mess, but I’ll keep it here for now and I’ll remove it in the future.</p>
+<p>So, how to make a natural map if we can’t tweak these values? The answer is the Biomes Diagram. TukanHan uses the biomes diagram to diversify the map in the following way:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">int</span> y=<span class="number">0</span>; y&lt;mapHeight; y++)</span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">int</span> x=<span class="number">0</span>; x&lt;mapWidth; x++)</span><br><span class="line">		<span class="built_in">int</span> height = heightMap[x,y]</span><br><span class="line">		<span class="built_in">int</span> temp = tempMap[x,y]</span><br><span class="line">		Biom biom = biomes[height, temp]</span><br><span class="line">		tilemap.SetTile(x,y,biom.tile)</span><br></pre></td></tr></table></figure>
+
+<p>Obviously, this method can’t make the best use of the height noise map and the temperature noise map.</p>
+<p>Let’s start at the beginning. What is the noise map? A noise map looks like</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">11111</span><br><span class="line">12221</span><br><span class="line">12321</span><br><span class="line">11211</span><br><span class="line">12111</span><br><span class="line">23211</span><br><span class="line">22111</span><br></pre></td></tr></table></figure>
+
+<p>Yes, the noise map consists of mountains and plains. So, a height noise map consists of mountains and plains, and a temperature noise map also consists of mountains and plains. So, at first, we can simply divide the whole map into different areas by a height noise map - that’s why we don’t tweak Height Noise Map Parameters - and then we can diversify different height areas by means of the same temperature noise map!</p>
+<p>I mean that we can regard the temerature noise map as decorations, i.e. the different height values in the temperature noise map represent different decorations in the final map. So after populating the biomes diagram, I finally got a good map!</p>
+<p><img src="/photos/BiomData.png" alt="biom data"></p>
+<h1 id="Falloff-Map"><a href="#Falloff-Map" class="headerlink" title="Falloff Map"></a>Falloff Map</h1><p>You might realise, that water and land always appear randomly, with water taking up one half and land taking up the other, like in the picture below. That seems a little weird. Most of the time what we want is an island surrounded by water, or a patch of grass covering the land.</p>
+<p>I learned a trick to deal with the problem from <a target="_blank" rel="noopener" href="https://github.com/SebLague/Procedural-Landmass-Generation/blob/master/Proc%20Gen%20E11/">Sebastian Lague</a>.</p>
+<p>A falloff map looks like</p>
+<p><img src="/photos/FalloffMap.png" alt="falloff map"></p>
+<p>The key point is to substract a falloff map from a noise map. For example, if we have a noise map, like</p>
+<p><img src="/photos/NoiseMap.png" alt="nosie map"></p>
+<p>After applying the falloff map to it, we get</p>
+<p><img src="/photos/NoiseMap1.png" alt="nosie map1"></p>
+<p>How to generate a falloff map? Sebastian Lague gives a function</p>
+<p><img src="/photos/FalloffFunction.png" alt="falloff function"></p>
+<p>The feature of this function is that it starts at the diagonal of the square and decreases from 1 to 0, and the closer you get to the centre, the faster the value decreases to 0. This is good. But sometimes it consumes too many values on the edges. If we use the terminology of a css, that means that its padding is sometimes very large, so I would recommend setting A and B as controllable parameters to control its padding.</p>
 
     </div>
 
@@ -212,12 +240,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/12/27/Some-notes-on-%E3%80%8A%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E3%80%8B/" rel="prev" title="Some notes on 《加密与解密》">
-      <i class="fa fa-chevron-left"></i> Some notes on 《加密与解密》
+    <a href="/2024/02/10/A-simple-tilemap-generator/" rel="prev" title="A simple tilemap generator">
+      <i class="fa fa-chevron-left"></i> A simple tilemap generator
     </a></div>
       <div class="post-nav-item">
-    <a href="/2024/01/01/How-I-built-my-blog/" rel="next" title="How I built my blog">
-      How I built my blog <i class="fa fa-chevron-right"></i>
+    <a href="/2024/02/21/Farewell-Messi/" rel="next" title="Farewell, Messi">
+      Farewell, Messi <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

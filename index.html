@@ -147,6 +147,77 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mynamepfd.github.io/2024/04/11/Some-issues-about-Unity-and-their-solutions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Daniel Du">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Daniel Du's diary">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/04/11/Some-issues-about-Unity-and-their-solutions/" class="post-title-link" itemprop="url">Some issues about Unity and their solutions</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-04-11 09:03:56 / Modified: 10:27:26" itemprop="dateCreated datePublished" datetime="2024-04-11T09:03:56+08:00">2024-04-11</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>I have to say that Unity is a good game engine, but not the best! Unity offers all basic functionality that you need, but if you want to achive you requirement, you must do many extra works. From this perspective, Unity is a bit like C programming language.</p>
+<h1 id="2D-Map"><a href="#2D-Map" class="headerlink" title="2D Map"></a>2D Map</h1><p>One month ago, I wrote a tilemap generator. I was going to generate some basic 2D maps by this tool. But recently I realised that I shouldn’t use a MonoBehaviour to generate 2D maps because the generation of terrain should be done by brushes, and that sounds more rational. So how to do that? The answer is <a target="_blank" rel="noopener" href="https://docs.unity3d.com/2021.3/Documentation/Manual/Tilemap-ScriptableBrushes.html">Scriptable Brushes</a>. So I created a couple of brushes to do that, and of course, using brushes to generate maps is more flexible than using a MonoBehaviour because you can paint or erase specific areas.</p>
+<p><img src="/photos/ChunkBrush.gif" alt="ChunkBrush"></p>
+<h1 id="2D-Frame-Animation"><a href="#2D-Frame-Animation" class="headerlink" title="2D Frame Animation"></a>2D Frame Animation</h1><p>So the next problem is Frame Animation. Just like the walking animation, 2D artists usually paint all frames releated to the walking animation into a sprite sheet. For example, in the sprite sheet below, it contains many animations releated to different skin color, and the number of sprites is 3135!</p>
+<p><img src="/photos/spritesheet.gif" alt="A example sprite sheet"></p>
+<p>The problem is, should I drag sprites from the sprite sheet and create animation clips one by one? That’s incredible! This means I have to perform the same operation - dragging - at least 3135 times. In fact, one asset package usually contains dozens of such sprite sheets to support character customization. This means you also have to create a basic animator controller and thousands of override controller of the basic controller! So I wrote severals script to do that and finally I got almost 2500 controllers in a few minutes. Without that, it could have taken me months to create these controllers. The below script snippet may be useful to you, which could save you tons of time in the process of creating thousands of controllers. Btw, try-catch is not necessary but is <a target="_blank" rel="noopener" href="https://forum.unity.com/threads/saving-materials-with-assetdatabase-createasset-very-slow.488038/#post-9702416">recommended</a>.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	AssetDatabase.StartAssetEditing();</span><br><span class="line">	<span class="keyword">for</span> (<span class="built_in">int</span> i=<span class="number">0</span>; i&lt;frameAnimations.Count; i++) &#123;</span><br><span class="line">	    AnimationDetail detail = frameAnimations[i];</span><br><span class="line">	    AnimationClip clip = CreateAnimationClip(detail);</span><br><span class="line">	    AssetDatabase.CreateAsset(clip, <span class="string">$&quot;<span class="subst">&#123;rootPath&#125;</span>/<span class="subst">&#123;detail.animName&#125;</span>.anim&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span> &#123;</span><br><span class="line">	<span class="comment">//AssetDatabase.SaveAssets();</span></span><br><span class="line">	AssetDatabase.StopAssetEditing();</span><br><span class="line">	<span class="comment">//AssetDatabase.Refresh();</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Selecting-multiple-sprites-in-the-Sprite-Editor"><a href="#Selecting-multiple-sprites-in-the-Sprite-Editor" class="headerlink" title="Selecting multiple sprites in the Sprite Editor"></a>Selecting multiple sprites in the Sprite Editor</h1><p><a target="_blank" rel="noopener" href="https://forum.unity.com/threads/feature-request-selecting-multiple-sprites-in-the-sprite-editor.1014130/page-2#post-9759330">Feature request: selecting multiple sprites in the sprite editor</a></p>
+<p>The Sprite Editor doesn’t support multiple selections! That’s unbelivable! I’d like to ask the Unity development team, What are you doing every day? There are many such feature requests in Unity forum, but after so many years, the Sprite Editor still doestn’t support that operation! And <a target="_blank" rel="noopener" href="https://docs.unity.cn/Packages/com.unity.2d.sprite@1.0/manual/index.html">the offical document</a> doesn’t give you any useful information. So I have to read the source code of the Sprite Editor. Finally I made an extension module of the Sprite Editor. Actually, if the Unity development team provides enough information in the documentation, it is not difficult to make an extension module for the Sprite Editor, and I think that ISpriteEditorDataProvider already provides everything for creating an Sprite Editor.</p>
+<p><img src="/photos/TileSetEditor.gif" alt="TileSetEditor"></p>
+<h1 id="Making-Rule-Tiles"><a href="#Making-Rule-Tiles" class="headerlink" title="Making Rule Tiles"></a>Making Rule Tiles</h1><p>I wrote a Rule Tile maker to make rule tiles based on the <a target="_blank" rel="noopener" href="https://github.com/stalengd/QuickRuleTileEditor">QuickRuleTileEditor</a>, but making rule tiles should be done in the Sprite Editor, isn’t it? After making TileSetEditor, I realised that making a rule tile editor is very easy! Just remove some code from TileSetEditor.</p>
+<p><img src="/photos/RuleTileEditor.gif" alt="RuleTileEditor"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://mynamepfd.github.io/2024/02/21/Farewell-Messi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -191,6 +262,138 @@
 <p>And CR7, to me, you’ve always been the only GOAT.</p>
 <iframe src="//player.bilibili.com/player.html?aid=966457118&bvid=BV14W4y1w7M2&cid=1409381509&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mynamepfd.github.io/2024/02/11/Some-improvements-to-the-tilemap-generator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Daniel Du">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Daniel Du's diary">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/02/11/Some-improvements-to-the-tilemap-generator/" class="post-title-link" itemprop="url">Some improvements to the tilemap generator</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-02-11 15:26:09" itemprop="dateCreated datePublished" datetime="2024-02-11T15:26:09+08:00">2024-02-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-02-12 20:59:41" itemprop="dateModified" datetime="2024-02-12T20:59:41+08:00">2024-02-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>I made a simple <a target="_blank" rel="noopener" href="https://www.danieldu.top/2024/02/10/A-simple-tilemap-generator/">tilemap generator</a>, but it was obviously too simple and not enough for my game, so I made some improvements to the tilemap generator. I strongly recommend you to review my last post first.
+          <!--noindex-->
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mynamepfd.github.io/2024/02/10/A-simple-tilemap-generator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Daniel Du">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Daniel Du's diary">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/02/10/A-simple-tilemap-generator/" class="post-title-link" itemprop="url">A simple tilemap generator</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-02-10 12:45:31 / Modified: 15:00:15" itemprop="dateCreated datePublished" datetime="2024-02-10T12:45:31+08:00">2024-02-10</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>Tilemap generator</center>
+
+<p><img src="/photos/MapGenerator.png" alt="tilemap generator"></p>
+<p>I made a simple tilemap generator based on the <a target="_blank" rel="noopener" href="https://github.com/TukanHan/Map-Generator">Map Generator</a> made by TukanHan and the <a target="_blank" rel="noopener" href="https://www.redblobgames.com/maps/terrain-from-noise">article</a>.</p>
+<p>Thanks to them!
+          <!--noindex-->
+          <!--/noindex-->
+        
       
     </div>
 
@@ -503,6 +706,74 @@
 
       
           <p>Well, you may have realised that I’m a Chinese. So why do I use English instead of Chinese?<br>Yes, Chinese, or more accurately, Mandarin, is my first language, and I’ve been learning chinese since I was a baby, about two or three years old. But a fact is that most chinese people no longer enjoy reading articles written by chinese people after leaving schools.
+          <!--noindex-->
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mynamepfd.github.io/2023/12/27/Some-notes-on-%E3%80%8A%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E3%80%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Daniel Du">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Daniel Du's diary">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/27/Some-notes-on-%E3%80%8A%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E3%80%8B/" class="post-title-link" itemprop="url">Some notes on 《加密与解密》</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-27 13:21:33" itemprop="dateCreated datePublished" datetime="2023-12-27T13:21:33+08:00">2023-12-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-01-05 12:59:10" itemprop="dateModified" datetime="2024-01-05T12:59:10+08:00">2024-01-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>《加密与解密》is a book written by a couple of  master at kanxue.com that tells you about techniques in the software reverse engineering. I bought this book a few years ago, but I couldn’t understand the content at the time. After a few years on the shelf, I sold it two years ago. But recently I read this book again because I wanted to decrypt a piece of software.</p>
+<p>OK. I only want to talk about Chapter 20, 《虚拟机的设计》. It’s “how to design a virtual machine” in english. To be precise, it teaches you how to design a virtual machine software, like the well known VMProtect, to protect your software. This chapter is not easy to understand because the author omitted many details. So, I’d like to write some notes down.</p>
           <!--noindex-->
           <!--/noindex-->
         
